@@ -1,11 +1,27 @@
+
+# Delete all tables
+
 Product.delete_all
 User.delete_all
+Role.delete_all
 
-jack = User.create(email: "jack@chairs.com", password: "abcd1234")
-james = User.create(email: "james@chairs.com", password: "abcd1234")
-julia = User.create(email: "julia@chairs.com", password: "abcd1234")
-jasmine = User.create(email: "jasmine@chairs.com", password: "abcd1234")
+# -- Setup Roles and Admin User --
 
+admin_role = Role.create(name: "Admin", description: "Administrator that can update products")
+customer_role = Role.create(name: "Customer", description: "Customer that can buy stuff")
+
+# -- Setup Admin User --
+
+admin_user = User.create(email: "admin@aeki.com", password: "adminadmin", role: admin_role)
+
+# -- Customers --
+
+jack = User.create(email: "jack@chairs.com", password: "abcd1234", role: customer_role)
+james = User.create(email: "james@chairs.com", password: "abcd1234", role: customer_role)
+julia = User.create(email: "julia@chairs.com", password: "abcd1234", role: customer_role)
+jasmine = User.create(email: "jasmine@chairs.com", password: "abcd1234", role: customer_role)
+
+# -- Products --
 
 Product.create(
   name: "Truth Inertia",
