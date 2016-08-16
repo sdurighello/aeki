@@ -82,7 +82,7 @@ These are the steps I followed when working on this app:
   * When the same product is added to cart, only the quantity should change
 
 -- update Inventory
-  * When an order is placed, inventory quantity for the product should be updated. Class method on Inventory model that takes product_id, quantity.
+  * git 
 
 -- cart management
   * at checkout, line items are copied from cart to order
