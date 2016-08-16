@@ -7,9 +7,13 @@
   <%= f.text_area :description %>
   <br />
 
-  <%= f.label :price%>
+  <%= f.label :price %>
   <%= f.number_field :price %>
   <br />
-  
+
+  <%= f.label :image %>
+  <%= f.file_field :image %>
+  <br />
+
   <%= f.submit "Create" %>
 <% end %>
