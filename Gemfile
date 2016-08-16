@@ -34,6 +34,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Use CarrierWave for file uploads
 gem 'carrierwave'
+# Use Cloudinary for file storage
+gem 'cloudinary'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
