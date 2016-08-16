@@ -13,7 +13,6 @@ These are the steps I followed when working on this app:
 
 1. Define data-model
 2. Define screen flow
-3.
 
 ## Database Structure
 
@@ -82,15 +81,35 @@ These are the steps I followed when working on this app:
   * When the same product is added to cart, only the quantity should change
 
 -- update Inventory
-  * git 
+  * git
 
 
 -- cart management
   * at checkout, line items are copied from cart to order
   * at place order, cart is destroyed
 
+## Cart management
 
+1. Product page:
+  * AddToCart button on product calls method Order.add_to_cart(session, product)
+    * add_to_cart method checks if a cart exist in the session.
+    * If yes, it checks if the cart contains the product.
+    * if no, it creates a new line item hash with product and quantity 1
 
+    -> Entry point from wherever if cart is not empty (via some "go to cart" button)
+
+    * Pre-populates a new order form (Orders#new) with session[cart] details
+
+2. Order new page:
+  * Page has a 3 buttons:  "Back to products" - "Update" - "Place order"
+    * Back to products
+      * just a link that re-directs you to the Products#index
+    * Update
+      * For now, just replaces the session[:cart] with whatever is in the form
+      * And stays on the page with just a message "Cart updated"
+    * Place order
+      * Form data is posted to Orders table creating an order (Orders#create)
+      * Takes you to Orders#show page for the newly created order
 
 
 ## Screen flow
