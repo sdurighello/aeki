@@ -62,5 +62,4 @@ ActiveRecord::Schema.define(version: 20160816130255) do
   end
 
   add_foreign_key "inventories", "products"
-
 end
