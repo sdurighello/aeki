@@ -84,6 +84,7 @@ These are the steps I followed when working on this app:
 -- update Inventory
   * git 
 
+
 -- cart management
   * at checkout, line items are copied from cart to order
   * at place order, cart is destroyed
