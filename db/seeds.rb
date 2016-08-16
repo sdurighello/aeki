@@ -1,9 +1,10 @@
+Product.delete_all
 User.delete_all
 
-jack = User.create(email: "jack@chairs", password: "abcd1234")
-james = User.create(email: "james@chairs", password: "abcd1234")
-julia = User.create(email: "julia@chairs", password: "abcd1234")
-jasmine = User.create(email: "jasmine@chairs", password: "abcd1234")
+jack = User.create(email: "jack@chairs.com", password: "abcd1234")
+james = User.create(email: "james@chairs.com", password: "abcd1234")
+julia = User.create(email: "julia@chairs.com", password: "abcd1234")
+jasmine = User.create(email: "jasmine@chairs.com", password: "abcd1234")
 
 
 Product.create(
