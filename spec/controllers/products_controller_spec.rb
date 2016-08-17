@@ -1,7 +1,7 @@
 require "rails_helper"
 
-class ProductsControllerTest < ActionDispatch::IntegrationTest
-  describe "GET #INDEX" do
+describe ProductsController do
+  describe "GET index" do
     it "assigns @products and renders the index template" do
       product = Product.create(
         name: "Truth Inertia",
@@ -17,7 +17,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe "GET #show" do
+  describe "GET show" do
     it "assigns @product and renders the show template" do
       product = Product.create(
         name: "Truth Inertia",
