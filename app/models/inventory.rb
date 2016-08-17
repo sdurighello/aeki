@@ -1,6 +1,6 @@
 class Inventory < ApplicationRecord
-  has_many :products
-  
+  belongs_to :product
+
   # Availability check for a product
   def is_product_available? (product_id)
     inventory_line = self.find_by(product_id: product_id)
@@ -10,6 +10,4 @@ class Inventory < ApplicationRecord
       false
     end
   end
-
-
 end
