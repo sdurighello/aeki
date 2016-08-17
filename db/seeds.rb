@@ -2,6 +2,7 @@
 # Delete all tables
 
 Product.delete_all
+Profile.delete_all
 User.delete_all
 Role.delete_all
 
@@ -20,6 +21,14 @@ jack = User.create(email: "jack@chairs.com", password: "abcd1234", role: custome
 james = User.create(email: "james@chairs.com", password: "abcd1234", role: customer_role)
 julia = User.create(email: "julia@chairs.com", password: "abcd1234", role: customer_role)
 jasmine = User.create(email: "jasmine@chairs.com", password: "abcd1234", role: customer_role)
+
+# -- Profiles --
+
+pf_jack = Profile.create(first_name: "Jack", surname: "Jacobsen", addr_street: "Weesperstraat 22", addr_postcode: "1443AA", addr_town: "Amsterdam", gender: "male", user: jack )
+pf_james = Profile.create(first_name: "James", surname: "Jarvis", addr_street: "Damrak 2", addr_postcode: "1232AA", addr_town: "Amsterdam", gender: "male", user: james )
+pf_julia = Profile.create(first_name: "Julia", surname: "Johnston", addr_street: "Keizersgracht 34", addr_postcode: "1883DF", addr_town: "Amsterdam", gender: "female", user: julia )
+pf_jasmine = Profile.create(first_name: "Jasmine", surname: "Jonker", addr_street: "Prinsengracht 244", addr_postcode: "1253DA", addr_town: "Amsterdam", gender: "female", user: jasmine )
+pf_admin_user = Profile.create(first_name: "Boris", surname: "Boss", user: admin_user)
 
 # -- Products --
 
