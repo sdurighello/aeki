@@ -7,6 +7,6 @@ Rails.application.routes.draw do
   post 'products' => 'products#create'
   get 'products/:id' => 'products#show', as: :product
 
-  #devise_for :users
+  devise_for :users
 
 end
