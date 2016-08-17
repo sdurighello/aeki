@@ -8,4 +8,11 @@ class User < ApplicationRecord
   belongs_to :role
   has_one :profile
 
+  def role?(rolename)
+    begin
+      return self.role.name == rolename
+    rescue
+      return false
+    end
+  end
 end

@@ -10,6 +10,7 @@ Role.delete_all
 
 admin_role = Role.create(name: "Admin", description: "Administrator that can update products")
 customer_role = Role.create(name: "Customer", description: "Customer that can buy stuff")
+guest_role = Role.create(name: "Guest", description: "User is not logged in")
 
 # -- Setup Admin User --
 

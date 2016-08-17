@@ -1,12 +1,13 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
     @products = Product.all
+    authorize! :read, @products
   end
 
   def show
     @product = Product.find(params[:id])
+    authorize! :read, @products
   end
 
   def add_to_cart
@@ -35,10 +36,12 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    #authorize! :create, @products
   end
 
   def create
     @product = Product.new( product_params )
+    authorize! :create, @products
 
     if @product.save
       redirect_to @product
@@ -49,10 +52,12 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find(params[:id])
+    authorize! :update, @products
   end
 
   def update
     @product = Product.find(params[:id])
+    authorize! :update, @products
 
     if @product.update_attributes( product_params)
       redirect_to @product
@@ -63,6 +68,7 @@ class ProductsController < ApplicationController
 
   def destroy
     @product = Product.find(params[:id])
+    authorize! :destroy, @products
 
     @product.destroy
 
