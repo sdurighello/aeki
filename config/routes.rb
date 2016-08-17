@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'products' => 'products#create'
   patch 'products/:id' => 'products#update'
   get 'products/:id' => 'products#show', as: :product
+  delete 'products/:id' => 'products#destroy'
 
   devise_for :users
 
