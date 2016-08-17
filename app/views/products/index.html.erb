@@ -2,8 +2,10 @@
 
 <% @products.each do |product| %>
   <p>
-    <%= image_tag(product.image, alt: product.name)%><br />
-    <%= product.name %>
+    <%= image_tag(product.image.thumbnail.url, class: "thumbnail inline", alt: product.name)%><br />
+    <%= link_to product.name, product_path(product.id) %>
   </p>
   <br />
 <% end %>
+
+<%= link_to "Create New Product", new_product_path %>
