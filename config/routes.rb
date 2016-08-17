@@ -13,4 +13,6 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  get 'profiles/new' => 'profiles#new', as: :new_profile
+
 end
