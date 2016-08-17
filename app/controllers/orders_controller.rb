@@ -14,7 +14,23 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    @order = Order.new
+    if(session[:cart])
+      cart_items = session[:cart] # [{product: ..., quantity: ...}]
+
+      @cart = session[:cart]
+
+
+
+      @order = Order.new
+
+      # cart_items.each do |item|
+      #   @order.line_items << item
+      # end
+
+    else
+      render_root
+    end
+
   end
 
   # GET /orders/1/edit

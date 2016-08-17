@@ -9,6 +9,17 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
 
+  def add_to_cart
+
+    session[:cart] = [] if !session[:cart]
+    new_item = {}
+    new_item[:product_id] = params[:cart_item]
+    new_item[:quantity] = 1
+    session[:cart] << new_item
+    redirect_to new_order_path
+
+  end
+
   def new
     @product = Product.new
   end
