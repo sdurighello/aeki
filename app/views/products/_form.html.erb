@@ -15,5 +15,5 @@
   <%= f.file_field :image %>
   <br />
 
-  <%= f.submit "Create" %>
+  <%= f.submit (@product.new_record? ? "Create" : "Update") %>
 <% end %>
