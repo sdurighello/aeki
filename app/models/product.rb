@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  belongs_to :inventory
+  has_one :inventory
   has_many :line_items
 
   validates :name, presence: true
