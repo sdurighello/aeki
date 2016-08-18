@@ -1,16 +1,18 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.accessible_by(current_ability)
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
     @order = Order.find(params[:id])
+    @order = Order.accessible_by(current_ability)
   end
 
   def history

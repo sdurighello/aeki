@@ -9,9 +9,11 @@ class Ability
         can :manage, :all
       elsif user.role?("Customer")
         can :add_to_cart, :all
-        can :read, :all
+        can :read, Order, :user_id => user.id
+        can :create, Order, :user_id => user.id
+        can :read, Product
       else
-        can :read, :all
+        can :read, Product
       end
     #
     # The first argument to `can` is the action you are giving the user
