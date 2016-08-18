@@ -2,12 +2,12 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
-    authorize! :read, @products
+    authorize! :read, Product
   end
 
   def show
     @product = Product.find(params[:id])
-    authorize! :read, @products
+    authorize! :read, Product
   end
 
   def add_to_cart
