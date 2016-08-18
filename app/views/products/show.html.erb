@@ -17,6 +17,6 @@
 <%= link_to 'Home', root_path %>
 
 <%= form_tag add_to_cart_path, method: "post" do %>
-  <%= hidden_field_tag(:cart_item, @product.id) %>
+  <%= hidden_field_tag(:product_id, @product.id) %>
   <%= submit_tag("Add to cart") %>
 <% end %>

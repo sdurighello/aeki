@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+
+  root 'products#index'
+
   resources :orders
   resources :roles
-  root 'products#index'
+
   # resources :products
   get 'products' => 'products#index'
   get 'products/new' => 'products#new', as: :new_product
@@ -14,5 +17,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   get 'profiles/new' => 'profiles#new', as: :new_profile
+
+  post 'add_to_cart' => 'products#add_to_cart', as: :add_to_cart
 
 end
