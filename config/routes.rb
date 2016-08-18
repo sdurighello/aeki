@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'profiles/:id/edit' => 'profiles#edit', as: :edit_profile
   patch 'profiles/:id' => 'profiles#update'
   get 'profiles/:id' => 'profiles#show', as: :profile
+  get 'profiles' => 'profiles#index'
 
   post 'add_to_cart' => 'products#add_to_cart', as: :add_to_cart
 
