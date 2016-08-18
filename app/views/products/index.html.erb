@@ -8,4 +8,8 @@
   <br />
 <% end %>
 
-<%= link_to "Create New Product", new_product_path %>
+<% if can? :create, @product %>
+  <%= link_to "Create New Product", new_product_path %>
+<% end %>
+
+<%= @user %>
