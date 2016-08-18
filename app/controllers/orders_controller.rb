@@ -12,7 +12,6 @@ class OrdersController < ApplicationController
   # GET /orders/1.json
   def show
     @order = Order.find(params[:id])
-    @order = Order.accessible_by(current_ability)
   end
 
   def history
