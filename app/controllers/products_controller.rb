@@ -11,23 +11,42 @@ class ProductsController < ApplicationController
 
   def add_to_cart
 
+    # session: {
+      # :cart => {
+        # :cart_items: [ {} ],
+        # :total_price: ...
+      # }
+    # }
+
     product_id = params[:product_id].to_i
     product = Product.find(product_id)
 
-    if session[:cart]
-      if session[:cart].any? { |line_item| line_item["product_id"] == product_id }
-        line_item = session[:cart].find { |i| i["product_id"] == product_id }
-        line_item["quantity"] += 1
-        line_item["price"] = line_item["quantity"] * product.price
-      else
-        new_line = LineItem.new(product_id: product_id, quantity: 1, price: product.price)
-        session[:cart] << new_line
-      end
+    cart = session[:cart] || {}
+    cart.symbolize_keys!
+    cart[:cart_items] ||= []
+    cart[:cart_items].map(&:symbolize_keys!)
+    cart[:total_price] ||= 0
+
+    if cart[:cart_items].any? { |cart_item| cart_item[:product_id] == product_id }
+      cart_item = cart[:cart_items].find { |i| i[:product_id] == product_id }
+      cart_item[:quantity] += 1
+      cart_item[:price] = cart_item[:quantity] * product.price
     else
-      session[:cart] = []
       new_line = LineItem.new(product_id: product_id, quantity: 1, price: product.price)
-      session[:cart] << new_line
+      cart[:cart_items] << new_line
     end
+
+    def calculate_total_price(cart_items)
+      total = 0
+      cart_items.each do |item|
+        total = total + item[:price]
+      end
+      total
+    end
+
+    cart[:total_price] = calculate_total_price cart[:cart_items]
+
+    session[:cart] = cart
 
     redirect_to new_order_path
 

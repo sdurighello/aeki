@@ -15,7 +15,8 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @cart = session[:cart]
-    @order = Order.new
+    @order = Order.new( total_price: 3000, line_items: [LineItem.new] )
+
   end
 
   # GET /orders/1/edit
@@ -25,8 +26,36 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params)
+    # 1) check that there is a cart, else exit creation and go back to cart
+    return redirect_to 'orders#new', notice: 'Your cart is empty' if !(session[:cart].present?)
 
+    # 2) get items and total price from session
+    cart = session[:cart]
+    cart.symbolize_keys!
+    cart_items = cart[:cart_items].map(&:symbolize_keys!)
+    total_price = cart[:total_price]
+
+    # 3) Create and save the line items.
+    def create_line_items(cart_items) # Returns array of saved line items
+      line_items = []
+      cart_items.each do |cart_item|
+        new_line = LineItem.create(
+          product_id: cart_item[:product_id],
+          quantity: cart_item[:quantity],
+          price: cart_item[:price]
+        )
+        new_line.save
+        line_items << new_line
+      end
+      line_items
+    end
+
+    line_items = create_line_items cart_items
+
+    # 4) Create order by putting line_items as array.
+    @order = Order.new(total_price: total_price, line_items: line_items, user: current_user)
+
+    # 5) Save order and redirect
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
@@ -36,6 +65,7 @@ class OrdersController < ApplicationController
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /orders/1
@@ -70,6 +100,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.fetch(:order, {})
+      params.require(:order).permit(:total_price, :line_items)
     end
 end
