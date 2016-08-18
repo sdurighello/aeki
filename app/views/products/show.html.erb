@@ -18,5 +18,9 @@
 
 <%= form_tag add_to_cart_path, method: "post" do %>
   <%= hidden_field_tag(:product_id, @product.id) %>
-  <%= submit_tag("Add to cart") %>
+  <% if can? :add_to_cart, Product %>
+    <%= submit_tag("Add to cart", class: "btn btn-primary") %>
+  <% else %>
+    <%= submit_tag("Add to cart", class: "btn btn-danger", disabled: true) %>
+  <% end %>
 <% end %>
