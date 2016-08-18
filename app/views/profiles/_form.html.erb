@@ -14,27 +14,27 @@
 
   <div class="field">
     <%= f.label "First name" %><br />
-    <%= f.text_field :first_name %>
+    <%= f.text_field :first_name, required: true %>
   </div>
 
   <div class="field">
     <%= f.label :surname %><br />
-    <%= f.text_field :surname %>
+    <%= f.text_field :surname, required: true %>
   </div>
 
   <div class="field">
     <%= f.label "Street / No." %><br />
-    <%= f.text_field :addr_street %>
+    <%= f.text_field :addr_street, required: true %>
   </div>
 
   <div class="field">
     <%= f.label "Postcode" %><br />
-    <%= f.text_field :addr_postcode %>
+    <%= f.text_field :addr_postcode, required: true %>
   </div>
 
   <div class="field">
     <%= f.label "Town" %><br />
-    <%= f.text_field :addr_town %>
+    <%= f.text_field :addr_town, required: true %>
   </div>
 
   <div class="field">
