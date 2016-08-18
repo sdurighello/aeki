@@ -4,17 +4,18 @@
       <li><span id="notice" class="navbar-text"><%= notice %></span></li>
       <li><span id="alert" class="navbar-text"><%= alert %></span></li>
       <li><%= link_to "Home", products_path %></li>
-      <li><%= link_to "My Cart", new_order_path %></li>
       <% if !user_signed_in? %>
-          <li><%= link_to "Log In", new_user_session_path %></li>
+        <li><%= link_to "Log In", new_user_session_path %></li>
       <% else %>
-          <li><span class="navbar-text"><%= current_user.email %></span></li>
-          <li>
-          <% if current_user.profile.nil? %>
-            <%= link_to "Create profile", new_profile_path, :method => :get %>
-          <% end %>
-          </li>
-          <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
+        <li><%= link_to "My Cart", new_order_path %></li>
+        <li><%= link_to "Order history", orders_history_path %></li>
+        <% if current_user.profile.nil? %>
+          <li><%= link_to "Create profile", new_profile_path, :method => :get %></li>
+        <% else %>
+          <li><%= current_user.profile.first_name + " " + current_user.profile.surname %></li>
+        <% end %>
+        </li>
+        <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
       <% end %>
     </ul>
   </div>
