@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
-    #authorize! :create, @products
+    authorize! :create, @products
   end
 
   def create

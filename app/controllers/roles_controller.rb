@@ -1,15 +1,19 @@
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /roles
   # GET /roles.json
   def index
     @roles = Role.all
+    authorize! :create, @roles
   end
 
   # GET /roles/1
   # GET /roles/1.json
   def show
+    authorize! :create, @roles
+
     if @role.users.length == 0
       @assosciated_users = "None"
     else
