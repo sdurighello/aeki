@@ -1,6 +1,10 @@
 class ProfilesController < ApplicationController
   load_and_authorize_resource
 
+  def user_list
+    @users = User.all.order(:email)
+  end
+
   def index
     authorize! :create, @profile
   end

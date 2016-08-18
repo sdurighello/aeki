@@ -1,15 +1,33 @@
-<h1>Products</h1>
 
-<% @products.each do |product| %>
-  <p>
-    <%= image_tag(product.image.thumbnail.url, class: "thumbnail inline", alt: product.name)%><br />
-    <%= link_to product.name, product_path(product.id) %>
-  </p>
-  <br />
-<% end %>
+<div class="container">
 
-<% if can? :create, @product %>
-  <%= link_to "Create New Product", new_product_path %>
-<% end %>
+  <div class="row">
+    <div class="col-xs-9">
+      <h1 class="text-center">Our Products</h1>
+    </div>
+    <div class="col-xs-3">
+      <br />
+      <% if can? :create, @product %>
+        <%= link_to "Create New Product", new_product_path, {class:'btn btn-primary', style: 'color: white'} %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <% @products.each do |product| %>
+      <%= link_to product_path(product.id) do %>
+        <div class="col-md-4 col-sm-6">
+          <div class="panel panel-default">
+            <%= image_tag(product.image.thumbnail.url, {class: "center-block", style:"width: 30vw; height: auto"}) %>
+            <h4 class="text-center"><%= product.name %></h4>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>
+
+
 
 <%= @user %>
