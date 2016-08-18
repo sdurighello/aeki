@@ -10,12 +10,27 @@ class ProductsController < ApplicationController
   end
 
   def add_to_cart
-
-    session[:cart] = [] if !session[:cart]
-    new_item = {}
-    new_item[:product_id] = params[:cart_item]
-    new_item[:quantity] = 1
-    session[:cart] << new_item
+    product_id = params[:product_id]
+    product = Product.find(product_id)
+    if session[:cart]
+      session[:cart].each do |line_item|
+        if line_item.product_id == product_id
+          line_item.quantity +=
+          line_item.price = line_item.quantity * product.price
+        else
+          new_line = LineItem.new(:product_id product_id, :quantity 1, :price product.price)
+          session[:cart] << new_line
+        end
+      end
+    else
+      session[:cart] = []
+      new_line = LineItem.new(:product_id product_id, :quantity 1, :price product.price)
+      session[:cart] << new_line
+    end
+    # new_item = {}
+    # new_item[:product_id] = params[:cart_item]
+    # new_item[:quantity] = 1
+    # session[:cart] << new_item
     redirect_to new_order_path
 
   end
