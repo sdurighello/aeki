@@ -1,0 +1,17 @@
+<h1>Overview of products and stock</h1>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Price</th>
+    <th>Stock</th>
+  </tr>
+  <% @inventories.each do |inventory| %>
+    <tr>
+      <th><%= inventory.product.name %></th>
+      <th><%= inventory.product.price %></th>
+      <th><%= inventory.quantity %></th>
+      <th><%= link_to "[edit]", edit_product_path(inventory.product.id) %><th>
+    </tr>
+  <% end %>
+</table>
