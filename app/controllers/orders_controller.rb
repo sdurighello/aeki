@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    @order = Order.accessible_by(current_ability)
     @order = Order.find(params[:id])
   end
 
