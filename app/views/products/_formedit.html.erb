@@ -14,7 +14,7 @@
   <%= f.label :image %>
   <%= f.file_field :image %>
   <br />
-<% byebug %>
+  
   <%= f.fields_for :inventory, Inventory.find_by(product_id: @product.id ) do |ff| %>
 
     <%= ff.label :quantity %>

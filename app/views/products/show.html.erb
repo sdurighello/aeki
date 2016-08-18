@@ -1,26 +1,36 @@
-<h1><%= @product.name %></h1>
-
-<p>
-  <%= image_tag(@product.image, alt: @product.name)%>
-</p>
-<br />
-
-<p>
-  <%= @product.description %>
-</p>
-<br />
-
-<p>
-  <%= "EUR " + "#{@product.price}" %>
-</p>
-
-<%= link_to 'Home', root_path %>
-
-<%= form_tag add_to_cart_path, method: "post" do %>
-  <%= hidden_field_tag(:product_id, @product.id) %>
-  <% if can? :add_to_cart, Product %>
-    <%= submit_tag("Add to cart", class: "btn btn-primary") %>
-  <% else %>
-    <%= submit_tag("Add to cart", class: "btn btn-danger", disabled: true) %>
-  <% end %>
-<% end %>
+<div class="container">
+  <h1 class="text-center">Product: <em><%= @product.name %></em></h1>
+  <div class="row">
+    <div class="col-xs-6">
+      <p>
+        <%= image_tag(@product.image, alt: @product.name)%>
+      </p>
+    </div>
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-6">
+          <%= form_tag add_to_cart_path, method: "post" do %>
+            <%= hidden_field_tag(:product_id, @product.id) %>
+            <% if can? :add_to_cart, Product %>
+              <%= submit_tag("Add to cart", class: "btn btn-primary") %>
+            <% else %>
+              <%= submit_tag("Add to cart", class: "btn btn-primary", disabled: true) %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="col-xs-6 form-group">
+          <%= link_to 'Edit', edit_product_path(@product), {class:'btn btn-success', style: 'color: white'} %>
+          <div class="btn btn-danger" style="color: white">
+            <%= link_to 'Destroy', @product, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h4><%= @product.description %></h4>
+          <p><%= "EUR " + "#{@product.price}" %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
