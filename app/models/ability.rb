@@ -9,6 +9,7 @@ class Ability
         can :manage, :all
       elsif user.role?("Customer")
         can :add_to_cart, :all
+        can :history, Order, :user_id => user.id
         can :read, Order, :user_id => user.id
         can :create, Order, :user_id => user.id
         can :read, Product
