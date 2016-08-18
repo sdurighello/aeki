@@ -31,41 +31,66 @@ pf_julia = Profile.create(first_name: "Julia", surname: "Johnston", addr_street:
 pf_jasmine = Profile.create(first_name: "Jasmine", surname: "Jonker", addr_street: "Prinsengracht 244", addr_postcode: "1253DA", addr_town: "Amsterdam", gender: "female", user: jasmine )
 pf_admin_user = Profile.create(first_name: "Boris", surname: "Boss", user: admin_user)
 
+inventory_TI = Inventory.create(
+quantity: 10
+)
+
+inventory_C9 = Inventory.create(
+quantity: 10
+)
+
+inventory_SE = Inventory.create(
+quantity: 10
+)
+
+inventory_SBSG = Inventory.create(
+quantity: 10
+)
+
+inventory_UW = Inventory.create(
+quantity: 10
+)
+
 # -- Products --
 
 truth_inertia = Product.create(
   name: "Truth Inertia",
   description: "Form over function",
   image: open("http://www.truthinertia.com/uploads/4/1/1/8/4118723/591193638.jpg"),
-  price: 999.99
+  price: 999.99,
+  inventory: inventory_TI
 )
 
 cloud_9 = Product.create(
   name: "Cloud #9",
   description: "Tasty design from Uzbekistan",
   image: open("http://2.bp.blogspot.com/-aGF1C41GMk8/Ta3QRMaQ0sI/AAAAAAAAAXw/3q_gn1t5IOU/s1600/spoon-chair.jpg"),
-  price: 899.99
+  price: 899.99,
+  inventory: inventory_C9
 )
 
 static_enhancement = Product.create(
   name: "Static Enhancement",
   description: "Prickle your senses",
   image: open("https://img.buzzfeed.com/buzzfeed-static/static/2014-01/enhanced/webdr06/14/5/enhanced-buzz-18735-1389693709-10.jpg"),
-  price: 1499.99
+  price: 1499.99,
+  inventory: inventory_SE
 )
 
 sobadsogood = Product.create(
   name: "SoBadSoGood",
   description: "Design with fangs",
   image: open("http://sobadsogood.com/uploads/stories/2015/06/05/This-Is-The-Most-Uncomfortable-Chair-Ever.jpg"),
-  price: 1049.99
+  price: 1049.99,
+  inventory: inventory_SBSG
 )
 
 urbanists_web = Product.create(
   name: "Urbanist's Web",
   description: "Less is more back ache",
   image: open("http://img.weburbanist.com/wp-content/uploads/2009/10/Uncomfortable_Chairs_4a.jpg"),
-  price: 649.99
+  price: 649.99,
+  inventory: inventory_UW
 )
 
 order1 = Order.create(
