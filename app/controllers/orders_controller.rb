@@ -34,7 +34,10 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     # 1) check that there is a cart, else exit creation and go back to cart
-    return redirect_to 'orders#new', notice: 'Your cart is empty' if !(session[:cart].present?)
+    if !(session[:cart].present?)
+      render :new, notice: 'Your cart is empty'
+      return
+    end
 
     # 2) get items and total price from session
     cart = session[:cart]
@@ -65,6 +68,9 @@ class OrdersController < ApplicationController
     # 5) Save order and redirect
     respond_to do |format|
       if @order.save
+        # If order created, delete cart
+        session[:cart] = nil
+        # Show order
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
