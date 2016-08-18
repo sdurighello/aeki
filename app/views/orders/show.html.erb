@@ -1,4 +1,40 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Order details</h1>
+
+<table>
+  <tr>
+    <th>Date and time</th>
+    <td><%= @order.created_at %></td>
+  </tr>
+  <tr>
+    <th>Customer</th>
+    <td><%= @order.user.profile.first_name + " " + @order.user.profile.surname %></td>
+  </tr>
+  <tr>
+    <th>Total price</th>
+    <td><%= number_to_currency(@order.total_price, unit: "€ ") %></td>
+  </tr>
+  <tr>
+    <th>Products</th>
+    <td>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+        <% @order.line_items.each do |line_item| %>
+          <tr>
+            <td><%= line_item.product.name %></td>
+            <td><%= line_item.quantity.to_s %></td>
+            <td><%= number_to_currency(line_item.price, unit: "€ ") %></td>
+          </tr>
+        <% end %>
+      </table>
+    </td>
+  </tr>
+</table>
+
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>
