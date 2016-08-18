@@ -1,0 +1,51 @@
+<%= form_for(@profile) do |f| %>
+
+  <% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+      <% @profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "First name" %><br />
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :surname %><br />
+    <%= f.text_field :surname %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Street / No." %><br />
+    <%= f.text_field :addr_street %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Postcode" %><br />
+    <%= f.text_field :addr_postcode %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Town" %><br />
+    <%= f.text_field :addr_town %>
+  </div>
+
+  <div class="field">
+    <%= f.label :gender %><br />
+    <%= f.select :gender, [['male','male'],['female','female']] %>
+  </div>
+
+  <p>Your emailaddress is: <%= current_user.email %>, isn't it?</p>
+
+  <div class="actions">
+    <%= f.submit "Save your profile"%>
+  </div>
+
+<% end %>
