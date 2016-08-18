@@ -17,8 +17,12 @@
       <% end %>
     </ul>
     <!-- Admin links -->
-        <!-- Roles link_to roles index -->
-        <!-- Users link_to users index -->
+    <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? && (current_user.role.name === "Admin") %>
+        <li><%= link_to "Roles", roles_path %></li>
+        <li><%= link_to "Users" %></li>
+      <% end %>
+    </ul>
     <!-- User/profile links -->
     <ul class="nav navbar-nav navbar-right">
       <% if !user_signed_in? %>
