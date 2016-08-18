@@ -16,7 +16,11 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  post 'profiles' => 'profiles#create'
   get 'profiles/new' => 'profiles#new', as: :new_profile
+  get 'profiles/:id/edit' => 'profiles#edit', as: :edit_profile
+  patch 'profiles/:id' => 'profiles#update'
+  get 'profiles/:id' => 'profiles#show', as: :profile
 
   post 'add_to_cart' => 'products#add_to_cart', as: :add_to_cart
 
