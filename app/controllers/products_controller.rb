@@ -15,6 +15,8 @@ class ProductsController < ApplicationController
     product_id = params[:product_id].to_i
     product = Product.find(product_id)
 
+    authorize! :add_to_cart, @products
+
     if session[:cart]
       if session[:cart].any? { |line_item| line_item["product_id"] == product_id }
         line_item = session[:cart].find { |i| i["product_id"] == product_id }
