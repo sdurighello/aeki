@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
 
     product_id = params[:product_id].to_i
     product = Product.find(product_id)
-	authorize! :add_to_cart, @products
+	  authorize! :add_to_cart, @products
 
     cart = session[:cart] || {}
     cart.symbolize_keys!
@@ -41,7 +41,7 @@ class ProductsController < ApplicationController
     def calculate_total_price(cart_items)
       total = 0
       cart_items.each do |item|
-        total = total + item[:price]
+        total = total + item[:price].to_f
       end
       total
     end

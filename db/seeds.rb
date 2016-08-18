@@ -1,6 +1,8 @@
 
-# Delete all tables
+# Delete all tables in the right order!
 
+LineItem.delete_all
+Order.delete_all
 Product.delete_all
 Profile.delete_all
 User.delete_all

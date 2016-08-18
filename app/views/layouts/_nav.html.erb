@@ -1,18 +1,34 @@
 <nav class="navbar-inverse" style="margin: 0">
   <div class="container">
-    <ul class="nav navbar-nav navbar-right">
+    <!-- Notices -->
+    <ul class="nav navbar-nav navbar-left">
       <li><span id="notice" class="navbar-text"><%= notice %></span></li>
       <li><span id="alert" class="navbar-text"><%= alert %></span></li>
+    </ul>
+    <!-- Store public links -->
+    <ul class="nav navbar-nav">
       <li><%= link_to "Home", products_path %></li>
-      <% if !user_signed_in? %>
-        <li><%= link_to "Log In", new_user_session_path %></li>
-      <% else %>
+    </ul>
+    <!-- Store authenticated links -->
+    <ul class="nav navbar-nav">
+      <% if user_signed_in? %>
         <li><%= link_to "My Cart", new_order_path %></li>
         <li><%= link_to "Order history", orders_history_path %></li>
+      <% end %>
+    </ul>
+    <!-- Admin links -->
+        <!-- Roles link_to roles index -->
+        <!-- Users link_to users index -->
+    <!-- User/profile links -->
+    <ul class="nav navbar-nav navbar-right">
+      <% if !user_signed_in? %>
+        <li><%= link_to "Sign In", new_user_session_path %></li>
+        <li><%= link_to "Sign up", new_user_registration_path %></li>
+      <% else %>
         <% if current_user.profile.first_name.nil? %>
-          <li><%= link_to "Create your profile", edit_profile_path( current_user.profile.id ), :method => :get %></li>
+          <li><%= link_to "Create profile", edit_profile_path( current_user.profile.id ), :method => :get %></li>
         <% else %>
-          <li><span class="navbar-text"><%= link_to (current_user.profile.first_name + " " + current_user.profile.surname), edit_profile_path( current_user.profile.id ), :method => :get %></span></li>
+          <li><%= link_to "#{current_user.profile.first_name} #{current_user.profile.surname}", edit_profile_path( current_user.profile.id ), :method => :get %></li>
         <% end %>
         <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
         <% end %>
