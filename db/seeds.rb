@@ -33,37 +33,91 @@ pf_admin_user = Profile.create(first_name: "Boris", surname: "Boss", user: admin
 
 # -- Products --
 
-Product.create(
+truth_inertia = Product.create(
   name: "Truth Inertia",
   description: "Form over function",
   image: open("http://www.truthinertia.com/uploads/4/1/1/8/4118723/591193638.jpg"),
   price: 999.99
 )
 
-Product.create(
+cloud_9 = Product.create(
   name: "Cloud #9",
   description: "Tasty design from Uzbekistan",
   image: open("http://2.bp.blogspot.com/-aGF1C41GMk8/Ta3QRMaQ0sI/AAAAAAAAAXw/3q_gn1t5IOU/s1600/spoon-chair.jpg"),
   price: 899.99
 )
 
-Product.create(
+static_enhancement = Product.create(
   name: "Static Enhancement",
   description: "Prickle your senses",
   image: open("https://img.buzzfeed.com/buzzfeed-static/static/2014-01/enhanced/webdr06/14/5/enhanced-buzz-18735-1389693709-10.jpg"),
   price: 1499.99
 )
 
-Product.create(
+sobadsogood = Product.create(
   name: "SoBadSoGood",
   description: "Design with fangs",
   image: open("http://sobadsogood.com/uploads/stories/2015/06/05/This-Is-The-Most-Uncomfortable-Chair-Ever.jpg"),
   price: 1049.99
 )
 
-Product.create(
+urbanists_web = Product.create(
   name: "Urbanist's Web",
   description: "Less is more back ache",
   image: open("http://img.weburbanist.com/wp-content/uploads/2009/10/Uncomfortable_Chairs_4a.jpg"),
   price: 649.99
+)
+
+order1 = Order.create(
+  user: jack,
+  total_price: 5099.96
+)
+order2 = Order.create(
+  user: julia,
+  total_price: 899.99
+)
+order3 = Order.create(
+  user: jasmine,
+  total_price: 2299.97
+)
+order4 = Order.create(
+  user: jack,
+  total_price: 4199.99
+)
+
+line_item_1 = LineItem.create(
+  product: sobadsogood,
+  order: order1,
+  quantity: 2,
+  price: sobadsogood.price * 2
+)
+line_item_2 = LineItem.create(
+  product: static_enhancement,
+  order: order1,
+  quantity: 2,
+  price: static_enhancement.price * 2
+)
+line_item_3 = LineItem.create(
+  product: cloud_9,
+  order: order2,
+  quantity: 1,
+  price: cloud_9.price
+)
+line_item_4 = LineItem.create(
+  product: urbanists_web,
+  order: order3,
+  quantity: 2,
+  price: urbanists_web.price * 2
+)
+line_item_5 = LineItem.create(
+  product: truth_inertia,
+  order: order3,
+  quantity: 1,
+  price: truth_inertia.price
+)
+line_item_6 = LineItem.create(
+  product: sobadsogood,
+  order: order4,
+  quantity: 4,
+  price: sobadsogood.price * 4
 )

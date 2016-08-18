@@ -12,6 +12,11 @@ class OrdersController < ApplicationController
   def show
   end
 
+  def history
+    @orders = Order.all
+    @orders_by_user = Order.where(:user == current_user)
+  end
+
   # GET /orders/new
   def new
     @cart = session[:cart]
