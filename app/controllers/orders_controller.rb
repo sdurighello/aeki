@@ -22,8 +22,6 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @cart = session[:cart]
-    @order = Order.new( total_price: 3000, line_items: [LineItem.new] )
-
   end
 
   # GET /orders/1/edit
@@ -106,7 +104,7 @@ class OrdersController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def order_params
-      params.require(:order).permit(:total_price, :line_items)
-    end
+    # def order_params
+    #   params.require(:order).permit(:total_price, :line_items)
+    # end
 end

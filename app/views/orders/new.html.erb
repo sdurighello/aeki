@@ -13,32 +13,32 @@
     </div>
   <% end %>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @cart['cart_items'].each do |cart_item| %>
-        <% line_item = LineItem.new(product_id: cart_item['product_id'], quantity: cart_item['quantity'], price: cart_item['price']) %>
-        <tr>
-          <td><%= line_item.product.name %></td>
-          <td><%= line_item.quantity %></td>
-          <td class="price"><%= number_to_currency(line_item.price, unit: "€ ") %></td>
-        </tr>
-      <% end %>
-      <tr>
-        <th colspan="2">Total price</th>
-        <th class="price"><%= number_to_currency(@cart['total_price'], unit: "€ ") %></th>
-      </tr>
-    </tbody>
-  </table>
-
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cart['cart_items'].each do |cart_item| %>
+      <% line_item = LineItem.new(product_id: cart_item['product_id'], quantity: cart_item['quantity'], price: cart_item['price']) %>
+      <tr>
+        <td><%= line_item.product.name %></td>
+        <td><%= line_item.quantity %></td>
+        <td class="price"><%= number_to_currency(line_item.price, unit: "€ ") %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <th colspan="2">Total price</th>
+      <th class="price"><%= number_to_currency(@cart['total_price'], unit: "€ ") %></th>
+    </tr>
+  </tbody>
+</table>
