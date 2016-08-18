@@ -19,7 +19,7 @@
           <% end %>
         </div>
         <div class="col-xs-6 form-group">
-          <% if current_user.role.name == "Admin" %>
+          <% if current_user.present? && (current_user.role.name == "Admin") %>
             <%= link_to 'Edit', edit_product_path(@product), {class:'btn btn-success', style: 'color: white'} %>
             <div class="btn btn-danger" style="color: white">
               <%= link_to 'Destroy', @product, method: :delete, data: { confirm: 'Are you sure?' } %>
