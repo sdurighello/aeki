@@ -3,6 +3,7 @@
 
 LineItem.delete_all
 Order.delete_all
+Inventory.delete_all
 Product.delete_all
 Profile.delete_all
 User.delete_all
