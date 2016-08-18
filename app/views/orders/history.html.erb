@@ -21,7 +21,7 @@
             <%= line_item.product.name + " (" + line_item.quantity.to_s + ")" %><br>
           <% end %>
         </td>
-        <td style="text-align:right;"><%= number_to_currency(order.total_price, unit: "€ ") %></td>
+        <td class="price"><%= number_to_currency(order.total_price, unit: "€ ") %></td>
         <td><%= link_to 'Show', order %></td>
         <td><%= link_to 'Edit', edit_order_path(order) %></td>
         <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
