@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
     product_id = params[:product_id].to_i
     product = Product.find(product_id)
 
-    authorize! :add_to_cart, @products
+    authorize! :add_to_cart, @products, :message => "You must be logged in to add products to your cart"
 
     if session[:cart]
       if session[:cart].any? { |line_item| line_item["product_id"] == product_id }
