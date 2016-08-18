@@ -7,6 +7,9 @@ class Ability
       user ||= User.new # guest user (not logged in)
       if user.role?("Admin")
         can :manage, :all
+      elsif user.role?("Customer")
+        can :add_to_cart, :all
+        can :read, :all
       else
         can :read, :all
       end
