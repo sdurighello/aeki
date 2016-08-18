@@ -1,10 +1,18 @@
 class ProfilesController < ApplicationController
+  load_and_authorize_resource
+
+  def index
+    authorize! :create, @profile
+  end
 
   def new
     @profile = Profile.new
     @profile.user = current_user
     @profile.save
     authorize! :create, @profile
+  end
+
+  def show
   end
 
   def create
