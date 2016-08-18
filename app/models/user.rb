@@ -8,11 +8,18 @@ class User < ApplicationRecord
   belongs_to :role
   has_one :profile
 
+  before_create :set_default_role
+
   def role?(rolename)
     begin
       return self.role.name == rolename
     rescue
       return false
     end
+  end
+
+  private
+  def set_default_role
+    self.role ||= Role.find_by_name('Customer')
   end
 end
