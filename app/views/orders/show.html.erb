@@ -1,37 +1,40 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<h1>Order details</h1>
+  <h1>Order details</h1>
 
-<table>
-  <tr>
-    <th>Date and time</th>
-    <td><%= @order.created_at %></td>
-  </tr>
-  <tr>
-    <th>Customer</th>
-    <td><%= @order.user.profile.first_name + " " + @order.user.profile.surname %></td>
-  </tr>
-  <tr>
-    <th>Total price</th>
-    <td class="price"><%= number_to_currency(@order.total_price, unit: "€ ") %></td>
-  </tr>
-  <tr>
-    <th>Products</th>
-    <td>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Price</th>
+  <div class="col-xs-6">
+    <table class="table table-bordered">
+      <tbody>
+        <tr colspan="2" class="success">
+          <td>
+            <em>Order n. <%= @order.id %></em>
+            &nbsp; &nbsp; &nbsp;
+            <span><%= @order.created_at.to_s(:long) %></span>
+            &nbsp; &nbsp; &nbsp;
+            <b>Total price: <%= number_to_currency(@order.total_price, unit: "€ ") %></b>
+          </td>
         </tr>
         <% @order.line_items.each do |line_item| %>
-          <tr>
-            <td><%= line_item.product.name %></td>
-            <td><%= line_item.quantity.to_s %></td>
-            <td class="price"><%= number_to_currency(line_item.price, unit: "€ ") %></td>
+        <tr>
+          <td>
+            <span><%= line_item.product.name%>    :   </span>
+            <span><%= pluralize(line_item.quantity.to_s, "item") %></span>
+          </td>
+        </tr>
+        <% end %>
+
+        <% if current_user.present? && (current_user.role.name == "Admin") %>
+          <tr colspan="2">
+            <td>
+              <%= link_to 'Show', @order %>
+              <%= link_to 'Edit', edit_order_path(@order) %>
+              <%= link_to 'Destroy', @order, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
           </tr>
         <% end %>
-      </table>
-    </td>
-  </tr>
-</table>
+      </tbody>
+    </table>
+  </div>
+
+</div>
