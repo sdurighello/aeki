@@ -7,10 +7,14 @@ class ApplicationController < ActionController::Base
   end
 
   def cart_total_quantity
-    quantity = 0
-    session[:cart]['cart_items'].each do |cart_item|
-      quantity += cart_item['quantity']
+    if session[:cart].present?
+      quantity = 0
+      session[:cart]['cart_items'].each do |cart_item|
+        quantity += cart_item['quantity']
+      end
+      quantity
+    else
+      quantity = 0
     end
-    quantity
   end
 end
