@@ -17,6 +17,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body {
+  font-family: 'Lato', sans-serif;
+}
 
 #alert {
   color: #F00;
@@ -28,4 +31,25 @@
 .logobar {
   height: 70px;
   padding: 5px 0 0 20px;
+}
+
+
+.navbar-inverse {
+  background-color: #13B5E8;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #ffffff;
+}
+.noticebar {
+  background-color: #FFCC00;
+  border-bottom: 1px #13B5E8 dotted;
+}
+.noticebar li {
+  padding: 2px 0;
+}
+.noticebar #alert {
+  text-decoration: none;
+  list-style: none;;
+  font-weight: 800;
 }
