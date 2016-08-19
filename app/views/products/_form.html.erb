@@ -16,10 +16,9 @@
   <br />
 
 
-  <%= f.fields_for :inventory, Inventory.new do |ff| %>
-    <%= ff.label :quantity %>
-    <%= ff.number_field :quantity %>
-  <% end %>
+  <%= f.label :quantity %>
+  <%= f.number_field :quantity %>
+  <br />
 
   <%= f.submit (@product.new_record? ? "Create" : "Update") %>
 <% end %>
