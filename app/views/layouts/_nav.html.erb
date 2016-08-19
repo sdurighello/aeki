@@ -12,7 +12,7 @@
     <!-- Store authenticated links -->
     <ul class="nav navbar-nav">
       <% if user_signed_in? %>
-        <li><%= link_to "My Cart", new_order_path %></li>
+        <li><%= link_to "Cart (#{cart_total_quantity})", new_order_path %></li>
         <li><%= link_to "Order history", orders_history_path %></li>
       <% end %>
     </ul>
