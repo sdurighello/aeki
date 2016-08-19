@@ -12,7 +12,7 @@
       <% @users.each do |user| %>
         <tr>
           <td><%= user.email %></td>
-          <td><%= user.profile.first_name + " " + user.profile.surname %></td>
+          <td><%= user.profile.first_name %></td>
           <td><%= user.profile.surname %></td>
           <td><%= user.profile.addr_street %></td>
           <td><%= user.profile.addr_postcode %></td>
