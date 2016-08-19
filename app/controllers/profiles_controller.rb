@@ -3,6 +3,7 @@ class ProfilesController < ApplicationController
 
   def user_list
     @users = User.where(role_id: Role.find_by(name: 'Customer').id).order(:email)
+    authorize! :view, @profile
   end
 
   def index
