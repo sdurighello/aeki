@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
   load_and_authorize_resource
 
   def user_list
-    @users = User.all.order(:email)
+    @users = User.where(role_id: Role.find_by(name: 'Customer').id).order(:email)
   end
 
   def index

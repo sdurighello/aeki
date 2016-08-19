@@ -1,9 +1,25 @@
 <div class="container">
   <table class="table">
-    <% @users.each do |user| %>
+    <thead>
       <tr>
-        <td><%= user.email %></td>
+        <th>Email</th>
+        <th colspan="2">Name</th>
+        <th colspan="3">Address</th>
+        <th>Sign up</th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.profile.first_name + " " + user.profile.surname %></td>
+          <td><%= user.profile.surname %></td>
+          <td><%= user.profile.addr_street %></td>
+          <td><%= user.profile.addr_postcode %></td>
+          <td><%= user.profile.addr_town %></td>
+          <td><%= user.created_at.to_s(:long) %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 </div>
