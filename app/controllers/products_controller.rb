@@ -1,13 +1,31 @@
 class ProductsController < ApplicationController
 
   def index
-    @products = Product.all
+    @products = Product.all.order(:name)
     authorize! :read, Product
   end
 
   def show
     @product = Product.find(params[:id])
     authorize! :read, Product
+  end
+
+  def remove_from_cart
+    product_id = params[:product_id].to_i
+    cart = session[:cart]
+    if cart.present?
+      cart.symbolize_keys!
+      cart[:cart_items] ||= []
+      cart[:cart_items].map(&:symbolize_keys!)
+      cart[:total_price] ||= 0
+
+      cart[:cart_items].delete_if { |item| item[:product_id] == product_id}
+    end
+    if cart[:cart_items].empty?
+      cart = nil
+    end
+    session[:cart] = cart
+    redirect_to new_order_path
   end
 
   def add_to_cart
@@ -19,6 +37,7 @@ class ProductsController < ApplicationController
       # }
     # }
 
+    quantity = params[:quantity].to_i
     product_id = params[:product_id].to_i
     product = Product.find(product_id)
 	  authorize! :add_to_cart, @products
@@ -29,12 +48,38 @@ class ProductsController < ApplicationController
     cart[:cart_items].map(&:symbolize_keys!)
     cart[:total_price] ||= 0
 
-    if cart[:cart_items].any? { |cart_item| cart_item[:product_id] == product_id }
-      cart_item = cart[:cart_items].find { |i| i[:product_id] == product_id }
-      cart_item[:quantity] += 1
-      cart_item[:price] = cart_item[:quantity] * product.price
+    cart_item = cart[:cart_items].find { |i| i[:product_id] == product.id }
+
+    def product_stock_empty?(product, cart_item, quantity)
+      if cart_item.present?
+        (product.quantity - (cart_item[:quantity] + quantity)) < 0
+      else
+        (product.quantity - quantity) < 0
+      end
+    end
+
+    def cart_item_empty?(product, cart_item, quantity)
+      if cart_item.present?
+        (cart_item[:quantity] + quantity) < 1
+      else
+        false
+      end
+    end
+
+    if product_stock_empty?(product, cart_item, quantity)
+      redirect_to new_order_path, notice: "No stock available for this product" and return
+    end
+
+    if cart_item_empty?(product, cart_item, quantity)
+      redirect_to new_order_path, notice: "Cart item quantity must be > 1. Remove item if not needed" and return
+    end
+
+    if cart[:cart_items].any? { |item| item[:product_id] == product_id }
+      item = cart[:cart_items].find { |i| i[:product_id] == product_id }
+      item[:quantity] += quantity
+      item[:price] = item[:quantity] * product.price
     else
-      new_line = LineItem.new(product_id: product_id, quantity: 1, price: product.price)
+      new_line = LineItem.new(product_id: product_id, quantity: quantity, price: product.price)
       cart[:cart_items] << new_line
     end
 

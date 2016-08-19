@@ -43,6 +43,9 @@ class OrdersController < ApplicationController
     cart_items = cart[:cart_items].map(&:symbolize_keys!)
     total_price = cart[:total_price]
 
+    # 2b) check that all products have availability, if not redirect with notice
+    # ..... to-do ......
+
     # 3) Create and save the line items.
     def create_line_items(cart_items) # Returns array of saved line items
       line_items = []
@@ -63,11 +66,17 @@ class OrdersController < ApplicationController
     # 4) Create order by putting line_items as array.
     @order = Order.new(total_price: total_price, line_items: line_items, user: current_user)
 
-    # 5) Save order and redirect
+    # 5) Save order, reduce stock and redirect
     respond_to do |format|
       if @order.save
         # If order created, delete cart
         session[:cart] = nil
+        # Reduce stock quantity for all products in order
+        @order.line_items.each do |item|
+          product = Product.find(item.product.id)
+          product.quantity -= item.quantity
+          product.save
+        end
         # Show order
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }

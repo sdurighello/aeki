@@ -61,6 +61,7 @@ truth_inertia = Product.create(
   description: "Form over function",
   image: open("http://www.truthinertia.com/uploads/4/1/1/8/4118723/591193638.jpg"),
   price: 999.99,
+  quantity: 10,
   inventory: inventory_TI
 )
 
@@ -69,6 +70,7 @@ cloud_9 = Product.create(
   description: "Tasty design from Uzbekistan",
   image: open("http://2.bp.blogspot.com/-aGF1C41GMk8/Ta3QRMaQ0sI/AAAAAAAAAXw/3q_gn1t5IOU/s1600/spoon-chair.jpg"),
   price: 899.99,
+  quantity: 2,
   inventory: inventory_C9
 )
 
@@ -77,6 +79,7 @@ static_enhancement = Product.create(
   description: "Prickle your senses",
   image: open("https://img.buzzfeed.com/buzzfeed-static/static/2014-01/enhanced/webdr06/14/5/enhanced-buzz-18735-1389693709-10.jpg"),
   price: 1499.99,
+  quantity: 0,
   inventory: inventory_SE
 )
 
@@ -85,6 +88,7 @@ sobadsogood = Product.create(
   description: "Design with fangs",
   image: open("http://sobadsogood.com/uploads/stories/2015/06/05/This-Is-The-Most-Uncomfortable-Chair-Ever.jpg"),
   price: 1049.99,
+  quantity: 1,
   inventory: inventory_SBSG
 )
 
@@ -93,6 +97,7 @@ urbanists_web = Product.create(
   description: "Less is more back ache",
   image: open("http://img.weburbanist.com/wp-content/uploads/2009/10/Uncomfortable_Chairs_4a.jpg"),
   price: 649.99,
+  quantity: 10,
   inventory: inventory_UW
 )
 
