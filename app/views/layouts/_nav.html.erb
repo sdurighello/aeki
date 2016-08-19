@@ -1,24 +1,24 @@
 <nav class="navbar-inverse" style="margin: 0">
   <div class="container">
-    <!-- Store public links -->
+    <%# Store public links %>
     <ul class="nav navbar-nav">
       <li><%= link_to "Home", products_path %></li>
-    </ul>
-    <!-- Store authenticated links -->
-    <ul class="nav navbar-nav">
+      <%# Store authenticated links %>
       <% if user_signed_in? %>
-        <li><%= link_to "Cart (#{cart_total_quantity})", new_order_path %></li>
-        <li><%= link_to "Order history", orders_history_path %></li>
+        <% if current_user.role.name === "Admin" %>
+          <%# Admin links %>
+          <li><%= link_to "Roles", roles_path %></li>
+          <li><%= link_to "Users", user_list_path %></li>
+          <li><%= link_to "Orders", roles_path %></li>
+          <li><%= link_to "Inventory", roles_path %></li>
+        <% else %>
+          <%# Customer links %>
+          <li><%= link_to "Cart (#{cart_total_quantity})", new_order_path %></li>
+          <li><%= link_to "Order history", orders_history_path %></li>
+        <% end %>
       <% end %>
     </ul>
-    <!-- Admin links -->
-    <ul class="nav navbar-nav navbar-right">
-      <% if user_signed_in? && (current_user.role.name === "Admin") %>
-        <li><%= link_to "Roles", roles_path %></li>
-        <li><%= link_to "Users", user_list_path %></li>
-      <% end %>
-    </ul>
-    <!-- User/profile links -->
+    <%# User/profile links %>
     <ul class="nav navbar-nav navbar-right">
       <% if !user_signed_in? %>
         <li><%= link_to "Sign In", new_user_session_path %></li>
@@ -27,7 +27,7 @@
         <% if current_user.profile.first_name.nil? %>
           <li><%= link_to "Create profile", edit_profile_path( current_user.profile.id ), :method => :get %></li>
         <% else %>
-          <li><%= link_to "#{current_user.profile.first_name} #{current_user.profile.surname}", edit_profile_path( current_user.profile.id ), :method => :get %></li>
+          <li style="font-style: italic;"><%= link_to "#{current_user.profile.first_name} #{current_user.profile.surname}", edit_profile_path( current_user.profile.id ), :method => :get %></li>
         <% end %>
         <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
         <% end %>
