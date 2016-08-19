@@ -28,5 +28,6 @@ Rails.application.routes.draw do
   get 'inventory' => 'inventory#index'
 
   post 'add_to_cart' => 'products#add_to_cart', as: :add_to_cart
+  post 'remove_from_cart' => 'products#remove_from_cart', as: :remove_from_cart
 
 end
