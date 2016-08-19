@@ -140,6 +140,11 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
+  def overview
+    @products = Product.all.order(:name)
+    authorize! :read, Product
+  end
+
 
   private
 
