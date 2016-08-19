@@ -19,6 +19,7 @@ class ProductsController < ApplicationController
       # }
     # }
 
+    quantity = params[:quantity].to_i
     product_id = params[:product_id].to_i
     product = Product.find(product_id)
 	  authorize! :add_to_cart, @products
@@ -31,10 +32,10 @@ class ProductsController < ApplicationController
 
     if cart[:cart_items].any? { |cart_item| cart_item[:product_id] == product_id }
       cart_item = cart[:cart_items].find { |i| i[:product_id] == product_id }
-      cart_item[:quantity] += 1
+      cart_item[:quantity] += quantity
       cart_item[:price] = cart_item[:quantity] * product.price
     else
-      new_line = LineItem.new(product_id: product_id, quantity: 1, price: product.price)
+      new_line = LineItem.new(product_id: product_id, quantity: quantity, price: product.price)
       cart[:cart_items] << new_line
     end
 
