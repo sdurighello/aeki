@@ -27,7 +27,7 @@
         <% if current_user.profile.first_name.nil? %>
           <li><%= link_to "Create profile", edit_profile_path( current_user.profile.id ), :method => :get %></li>
         <% else %>
-          <li style="font-style: italic;"><%= link_to "#{current_user.profile.first_name} #{current_user.profile.surname}", edit_profile_path( current_user.profile.id ), :method => :get %></li>
+          <li><%= link_to "#{current_user.profile.first_name} #{current_user.profile.surname}", profile_path( current_user.profile.id ), :method => :get %></li>
         <% end %>
         <li><%= link_to "Log Out", destroy_user_session_path, :method => :delete %></li>
         <% end %>

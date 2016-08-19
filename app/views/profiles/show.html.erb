@@ -1,1 +1,20 @@
-<%= @profile.inspect %>
+<div class='container'>
+<h1>Hello <%= @profile.first_name  %></h1>
+
+<p>This is what we know of you, so far...:</p>
+<br />
+
+<p>Email: <%= @profile.user.email %></p>
+<p>First name: <%= @profile.first_name%></p>
+<p>Family name: <%= @profile.surname %></p>
+<p>Street: <%= @profile.addr_street %></p>
+<p>Postcode: <%= @profile.addr_postcode %></p>
+<p>Town: <%= @profile.addr_town %></p>
+<p>Gender: <%= @profile.gender %></p>
+
+<%= link_to "Edit your profile", edit_profile_path( current_user.profile.id ) %><br />
+
+<%= link_to "Change your password", edit_user_registration_path %><br />
+
+<%= link_to "Delete your user account", edit_user_registration_path %><br />
+</div>
