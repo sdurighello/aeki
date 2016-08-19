@@ -21,6 +21,34 @@
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
+  <%= f.fields_for :profile, Profile.new do |profile| %>
+    <div class="field">
+      <%= profile.label :first_name %><br />
+      <%= profile.text_field :first_name, required: true %>
+    </div>
+    <div class="field">
+      <%= profile.label :surname %><br />
+      <%= profile.text_field :surname, required: true %>
+    </div>
+    <div class="field">
+      <%= profile.label "Street / no." %><br />
+      <%= profile.text_field :addr_street %>
+    </div>
+    <div class="field">
+      <%= profile.label "Postcode" %><br />
+      <%= profile.text_field :addr_postcode %>
+    </div>
+    <div class="field">
+      <%= profile.label "Town" %><br />
+      <%= profile.text_field :addr_town %>
+    </div>
+    <div class="field">
+      <%= profile.label :gender %><br />
+      <%= profile.select :gender, [['male','male'],['female','female']] %>
+    </div>
+
+  <% end %>
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
