@@ -8,8 +8,9 @@ class User < ApplicationRecord
   belongs_to :role
   has_one :profile
 
+  accepts_nested_attributes_for :profile, :allow_destroy => true
+
   before_create :set_default_role
-  after_create :create_profile
 
   def role?(rolename)
     begin

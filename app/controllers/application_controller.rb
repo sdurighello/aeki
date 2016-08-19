@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :cart_total_quantity
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
@@ -17,4 +18,15 @@ class ApplicationController < ActionController::Base
       quantity = 0
     end
   end
+
+  protected
+
+  def configure_permitted_parameters
+
+    devise_parameter_sanitizer.permit(:sign_up) do |u|
+      u.permit( :email, :password, :password_confirmation, profile_attributes: [ :first_name, :surname, :addr_street, :addr_postcode, :addr_town, :gender ] )
+    end
+
+  end
+
 end
