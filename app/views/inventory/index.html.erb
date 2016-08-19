@@ -10,7 +10,7 @@
     <tr>
       <th><%= inventory.product.name %></th>
       <th><%= inventory.product.price %></th>
-      <th><%= inventory.quantity %></th>
+      <th><%= inventory.product.quantity %></th>
       <th><%= link_to "[edit]", edit_product_path(inventory.product.id) %><th>
     </tr>
   <% end %>
