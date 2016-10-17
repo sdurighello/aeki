@@ -59,7 +59,7 @@ quantity: 10
 truth_inertia = Product.create(
   name: "Truth Inertia",
   description: "Form over function",
-  image: open("http://www.truthinertia.com/uploads/4/1/1/8/4118723/591193638.jpg"),
+  image: open("http://www.workwhilewalking.com/wp-content/uploads/2014/02/spike-chair-the-chair-of-spikes-300x212.jpg"),
   price: 999.99,
   quantity: 10,
   inventory: inventory_TI
