@@ -71,3 +71,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # DEIS production environment
 gem 'rails_12factor', group: :production
+
+# MOLLIE API client
+gem 'mollie-api-ruby'
