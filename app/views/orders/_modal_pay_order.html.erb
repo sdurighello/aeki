@@ -1,10 +1,15 @@
-<div class="modal-dialog" role="document">
+<div class="modal-dialog" role="document" data-order-id="<%= @order.id %>" data-payment-id="<%= @payment.id %>">
    <div class="modal-content">
       <div class="modal-header">
          <h4 class="modal-title text-center">Pay order</h4>
       </div>
       <div class="modal-body">
-        
+         <%= @payment.id %>
+         <%= @payment.links.paymentUrl %>
+         <div><%= @payment.description %></div>
+         <div><%= @payment.amount %></div>
+         <div id="paid"><%= @payment.paid? ? 'Paid' : 'Not paid'%></div>
+         <button id="update-payment-button" type="button" class="btn btn-success" data-dismiss="modal">Update payment</button>
       </div>
       <div class="modal-footer">
          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>

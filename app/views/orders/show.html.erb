@@ -18,8 +18,7 @@
             <b>Total price: <%= number_to_currency(@order.total_price, unit: "€ ") %></b>
             &nbsp; &nbsp; &nbsp;
             <%= link_to "Pay", order_pay_order_path(@order),
-              { remote: true, 'data-toggle': "modal", 'data-target': '#show',
-              id: "#{@order.id}"} %>
+              { remote: true, 'data-toggle': "modal", 'data-target': '#show'} %>
           </td>
         </tr>
         <% @order.line_items.each do |line_item| %>

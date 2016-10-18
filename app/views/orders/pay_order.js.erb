@@ -1,1 +1,10 @@
 $("#show").html("<%= escape_javascript(render 'orders/modal_pay_order') %>");
+
+function updatePayment(){
+  
+}
+
+// After loading: bind submit event
+$(document).ready(function() {
+  $("#update-payment-button").bind('click', updatePayment);
+});
