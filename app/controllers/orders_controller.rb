@@ -34,12 +34,12 @@ class OrdersController < ApplicationController
 
       p response.headers
 
-      # headers["X-Frame-Options"] = 'ALLOW-FROM https://www.mollie.com/'
-      #
-      # headers['Access-Control-Allow-Origin'] = '*'
-      # headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
-      # headers['Access-Control-Request-Method'] = '*'
-      # headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+      headers["X-Frame-Options"] = 'ALLOW-FROM https://www.mollie.com/'
+      
+      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
+      headers['Access-Control-Request-Method'] = '*'
+      headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
 
       p response.headers
 
