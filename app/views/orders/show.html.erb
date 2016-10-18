@@ -16,7 +16,7 @@
             &nbsp; &nbsp; &nbsp;
             <b>Total price: <%= number_to_currency(@order.total_price, unit: "€ ") %></b>
             &nbsp; &nbsp; &nbsp;
-            <%= link_to "Pay", order_pay_order_path(@order) %>
+            <%= (@order.paid == false) || (!@order.paid.present?) ? (link_to "Pay", order_pay_order_path(@order)) : 'Paid' %>
           </td>
         </tr>
         <% @order.line_items.each do |line_item| %>

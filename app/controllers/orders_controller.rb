@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource :except => [:pay_order]
+  load_and_authorize_resource
 
   # GET /orders
   # GET /orders.json
@@ -24,31 +24,13 @@ class OrdersController < ApplicationController
     mollie.api_key = 'test_Gpt5CeadQ9BbGMbmAT8BzMVcNzvmFS'
 
     # Create payment
-    if payment = mollie.payments.create(
+    if @payment = mollie.payments.create(
         amount: @order.total_price,
         description: "API payment for order id #{@order.id}",
-        redirectUrl: order_pay_order_url(@order)
+        redirectUrl: order_url(@order)
       )
-      @payment = payment
-      p payment
-
-      p response.headers
-
-      headers["X-Frame-Options"] = 'ALLOW-FROM https://www.mollie.com/'
-
-      headers['Access-Control-Allow-Origin'] = '*'
-      headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
-      headers['Access-Control-Request-Method'] = '*'
-      headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-
-      p response.headers
-
-      redirect_to payment.getPaymentUrl
-
-      respond_to do |format|
-        format.js
-        format.json { render json: @payment, status: :ok }
-      end
+      p @payment
+      redirect_to @payment.getPaymentUrl
 
     else
       render :show, notice: 'Something went wrong with your payment'
