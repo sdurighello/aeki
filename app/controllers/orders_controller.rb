@@ -13,24 +13,33 @@ class OrdersController < ApplicationController
   def show
     @order = Order.accessible_by(current_ability)
     @order = Order.find(params[:id])
+
+    # Check payment
+    # mollie = setup_mollie
+    # @payment = mollie.payments.get(@order.payment_id) if @order.payment_id.present?
   end
 
   def pay_order
     @order = Order.find(params[:order_id])
 
     # Setup Mollie
-    require 'Mollie/API/Client'
-    mollie = Mollie::API::Client.new
-    mollie.api_key = 'test_Gpt5CeadQ9BbGMbmAT8BzMVcNzvmFS'
+    mollie = setup_mollie
 
     # Create payment
     if @payment = mollie.payments.create(
         amount: @order.total_price,
         description: "API payment for order id #{@order.id}",
-        redirectUrl: order_url(@order)
+        redirectUrl: order_url(@order),
+        metadata: { order_id: @order.id }
       )
       p @payment
-      redirect_to @payment.getPaymentUrl
+      # Add payment_id to order
+      if @order.update(paid: false, payment_id: @payment.id)
+        # Call Mollie screen flow
+        redirect_to @payment.getPaymentUrl
+      else
+        render :show, notice: 'Something went wrong with your payment'
+      end
 
     else
       render :show, notice: 'Something went wrong with your payment'
@@ -140,6 +149,15 @@ class OrdersController < ApplicationController
     def set_order
       @order = Order.find(params[:id])
     end
+
+    # Setup MOLLIE
+    def setup_mollie
+      require 'Mollie/API/Client'
+      mollie = Mollie::API::Client.new
+      mollie.api_key = 'test_Gpt5CeadQ9BbGMbmAT8BzMVcNzvmFS'
+      mollie
+    end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     # def order_params
