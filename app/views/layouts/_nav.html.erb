@@ -14,7 +14,7 @@
         <% else %>
           <%# Customer links %>
           <li><%= link_to "Cart (#{cart_total_quantity})", new_order_path %></li>
-          <li><%= link_to "Order history", orders_history_path %></li>
+          <li><%= link_to "Order history", history_path %></li>
         <% end %>
       <% end %>
     </ul>

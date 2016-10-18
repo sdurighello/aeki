@@ -15,8 +15,12 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
 
     # Check payment
-    # mollie = setup_mollie
-    # @payment = mollie.payments.get(@order.payment_id) if @order.payment_id.present?
+    if @order.payment_id.present?
+      mollie = setup_mollie
+      @payment = mollie.payments.get(@order.payment_id)
+      p @payment
+    end
+
   end
 
   def pay_order
@@ -34,7 +38,7 @@ class OrdersController < ApplicationController
       )
       p @payment
       # Add payment_id to order
-      if @order.update(paid: false, payment_id: @payment.id)
+      if @order.update(payment_id: @payment.id)
         # Call Mollie screen flow
         redirect_to @payment.getPaymentUrl
       else

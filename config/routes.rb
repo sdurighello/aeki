@@ -31,9 +31,7 @@ Rails.application.routes.draw do
   resources :orders do
     get 'pay_order' => 'orders#pay_order'
   end
-  get 'orders/history' => 'orders#history'
-  get 'orders' => 'orders#index'
-
+  get 'history' => 'orders#history'
 
   # Inventory
 
