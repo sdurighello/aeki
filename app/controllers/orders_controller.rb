@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  # load_and_authorize_resource
+  load_and_authorize_resource :except => [:pay_order]
 
   # GET /orders
   # GET /orders.json
@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
       p response.headers
 
       headers["X-Frame-Options"] = 'ALLOW-FROM https://www.mollie.com/'
-      
+
       headers['Access-Control-Allow-Origin'] = '*'
       headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
       headers['Access-Control-Request-Method'] = '*'
