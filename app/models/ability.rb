@@ -12,6 +12,7 @@ class Ability
         can :history, Order, :user_id => user.id
         can :read, Order, :user_id => user.id
         can :create, Order, :user_id => user.id
+        can :pay_order, Order, :user_id => user.id
         can :read, Product
         can :manage, Profile, :user_id => user.id
       else

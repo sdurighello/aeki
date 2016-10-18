@@ -1,24 +1,30 @@
 <div class="container">
-  <p id="notice"><%= notice %></p>
 
   <h1>Order details</h1>
 
   <!-- Payment Modal -->
   <div id="show" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
-  <div class="col-md-6 col-xs-12">
+  <div class="col-md-10 col-xs-12">
     <table class="table table-bordered">
       <tbody>
         <tr colspan="2" class="success">
           <td>
             <em>Order n. <%= @order.id %></em>
-            &nbsp; &nbsp; &nbsp;
+            &nbsp; | &nbsp;
             <span><%= @order.created_at.to_s(:long) %></span>
-            &nbsp; &nbsp; &nbsp;
+            &nbsp; | &nbsp;
             <b>Total price: <%= number_to_currency(@order.total_price, unit: "€ ") %></b>
-            &nbsp; &nbsp; &nbsp;
-            <%= link_to "Pay", order_pay_order_path(@order),
-              { remote: true, 'data-toggle': "modal", 'data-target': '#show'} %>
+            &nbsp; | &nbsp;
+
+            <% if @order.payment_id.present? && @payment.status == 'paid' %>
+              Paid with payment <%= @payment.id %>
+            <% elsif @order.payment_id.present? && @payment.status != 'paid' %>
+              Payment <%= @payment.id %> is processing
+            <% else %>
+              <%= link_to "Pay", order_pay_order_path(@order) %>
+            <% end %>
+
           </td>
         </tr>
         <% @order.line_items.each do |line_item| %>

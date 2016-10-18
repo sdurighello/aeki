@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20160819064033) do
   end
 
   create_table "orders", force: :cascade do |t|
+    t.string   "payment_id"
+    t.boolean  "paid"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "user_id"

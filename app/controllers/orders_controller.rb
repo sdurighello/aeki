@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource :except => [:pay_order]
+  load_and_authorize_resource
 
   # GET /orders
   # GET /orders.json
@@ -13,41 +13,36 @@ class OrdersController < ApplicationController
   def show
     @order = Order.accessible_by(current_ability)
     @order = Order.find(params[:id])
+
+    # Check payment
+    if @order.payment_id.present?
+      mollie = setup_mollie
+      @payment = mollie.payments.get(@order.payment_id)
+      p @payment
+    end
+
   end
 
   def pay_order
     @order = Order.find(params[:order_id])
 
     # Setup Mollie
-    require 'Mollie/API/Client'
-    mollie = Mollie::API::Client.new
-    mollie.api_key = 'test_Gpt5CeadQ9BbGMbmAT8BzMVcNzvmFS'
+    mollie = setup_mollie
 
     # Create payment
-    if payment = mollie.payments.create(
+    if @payment = mollie.payments.create(
         amount: @order.total_price,
         description: "API payment for order id #{@order.id}",
-        redirectUrl: order_pay_order_url(@order)
+        redirectUrl: order_url(@order),
+        metadata: { order_id: @order.id }
       )
-      @payment = payment
-      p payment
-
-      p response.headers
-
-      headers["X-Frame-Options"] = 'ALLOW-FROM https://www.mollie.com/'
-
-      headers['Access-Control-Allow-Origin'] = '*'
-      headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
-      headers['Access-Control-Request-Method'] = '*'
-      headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-
-      p response.headers
-
-      redirect_to payment.getPaymentUrl
-
-      respond_to do |format|
-        format.js
-        format.json { render json: @payment, status: :ok }
+      p @payment
+      # Add payment_id to order
+      if @order.update(payment_id: @payment.id)
+        # Call Mollie screen flow
+        redirect_to @payment.getPaymentUrl
+      else
+        render :show, notice: 'Something went wrong with your payment'
       end
 
     else
@@ -158,6 +153,15 @@ class OrdersController < ApplicationController
     def set_order
       @order = Order.find(params[:id])
     end
+
+    # Setup MOLLIE
+    def setup_mollie
+      require 'Mollie/API/Client'
+      mollie = Mollie::API::Client.new
+      mollie.api_key = 'test_Gpt5CeadQ9BbGMbmAT8BzMVcNzvmFS'
+      mollie
+    end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     # def order_params
